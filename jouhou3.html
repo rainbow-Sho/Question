@@ -61,11 +61,14 @@
       clone.querySelector('.question-text').textContent = q.question;
       
       const choicesDiv = clone.querySelector('.choices');
-      q.choices.forEach(choice => {
-        const choiceP = document.createElement('p');
-        choiceP.textContent = choice;
-        choicesDiv.appendChild(choiceP);
-      });
+if (q.choices) {
+  q.choices.forEach(choice => {
+    const choiceP = document.createElement('p');
+    choiceP.textContent = choice;
+    choicesDiv.appendChild(choiceP);
+  });
+}
+
       
       clone.querySelector('.answer').textContent = q.answer;
       const button = clone.querySelector('.toggle-button');
