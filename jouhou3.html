@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問題集</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>定着確認</title>
+  <style>
+    .answer {
+      display: none;
+      color: blue;
+      margin-top: 5px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div id="quiz-container">
-        <h1>問題集</h1>
-        <div id="question"></div>
-        <div id="options"></div>
-        <button id="show-answer-btn">答えを見る</button>
-        <div id="answer" style="display:none;"></div>
+
+  <div id="quiz-container"></div>
+
+  <template id="quiz-template">
+    <div class="question">
+      <p class="question-text"></p>
+      <button class="toggle-button">答えを見る</button>
+      <div class="answer"></div>
     </div>
-    <script src="script.js"></script>
+  </template>
+
+  <script>
+    const questions = [
+      { question: "1 + 1 は？", answer: "2" },
+      { question: "3 × 3 は？", answer: "9" },
+      { question: "地球は何番目の惑星？", answer: "3番目" },
+    ];
+
+    const container = document.getElementById('quiz-container');
+    const template = document.getElementById('quiz-template');
+
+    questions.forEach(q => {
+      const clone = template.content.cloneNode(true);
+      clone.querySelector('.question-text').textContent = q.question;
+      clone.querySelector('.answer').textContent = q.answer;
+      const button = clone.querySelector('.toggle-button');
+      button.addEventListener('click', () => {
+        const answerDiv = button.nextElementSibling;
+        if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
+          answerDiv.style.display = 'block';
+          button.textContent = '答えを隠す';
+        } else {
+          answerDiv.style.display = 'none';
+          button.textContent = '答えを見る';
+        }
+      });
+      container.appendChild(clone);
+    });
+  </script>
+
 </body>
 </html>
