@@ -21,6 +21,7 @@
   <template id="quiz-template">
     <div class="question">
       <p class="question-text"></p>
+      <div class="choices">
       <button class="toggle-button">答えを見る</button>
       <div class="answer"></div>
     </div>
@@ -28,9 +29,28 @@
 
   <script>
     const questions = [
-      { question: "1 + 1 は？", answer: "2" },
-      { question: "3 × 3 は？", answer: "9" },
-      { question: "地球は何番目の惑星？", answer: "3番目" },
+      { question: "公大高専の「教職員」に付与されるメールアドレスのドメインを答えよ（アットマークを含めて答えること）。",
+       answer: "@omu.ac.jp" },
+      { question: "公大高専の「学生」に付与されるメールアドレスのドメインを答えよ（アットマークを含めて答えること）。", 
+       answer: " @st.omu.ac.jp" },
+      { question: "電子メールの文脈において「CC」および「BCC」とは、何という語の頭文字をとったものか英単語で答えよ。", 
+       answer: "Carbon Copy、Blind Carbon Copy" },
+      { question: "次のうち、クラウドストレージサービスとは言えないもの（データの保存を主目的に設計されていないもの）をすべて選び、記号で答えよ。※ ここでのクラウドストレージサービスとは、一般的にファイルやデータを保存・共有・アクセスのためのプラットフォームを指し、コードのバージョン管理やストリーミングなど、特定の目的に特化したサービスは除外されます。", 
+       choices:["① Google Drive ② Dropbox ③ OneDrive ④ Docker ⑤ iCloud⑥ Amazon S3 ⑦ Amazon EC2 ⑧ GitHub ⑨ Slack ⑩ Apache Hadoop"],
+       answer: "④ Docker、⑦ Amazon EC2、⑧ GitHub、⑨ Slack、⑩ Apache Hadoop" },
+      { question: "OneDrive は Windows のさまざまな機能と統合されていますが、特に密接に連携している機能（統合度が高い機能）は何か。次の選択肢から記号で答えよ。",
+       choices:["① メモ帳 ② Windows Defender ③ エクスプローラ ④ タスクマネージャ⑤ HYPER-V ⑥ WSL ⑦ コマンドプロンプト ⑧ ファイルマネージャ"],
+       answer: "③ エクスプローラ" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
+      { question: "", answer: "" },
     ];
 
     const container = document.getElementById('quiz-container');
@@ -39,6 +59,12 @@
     questions.forEach(q => {
       const clone = template.content.cloneNode(true);
       clone.querySelector('.question-text').textContent = q.question;
+      const choicesDiv = clone.querySelector('.choices');
+      q.choices.forEach(choice => {
+        const choiceP = document.createElement('p');
+        choiceP.textContent = choice;
+        choicesDiv.appendChild(choiceP);
+      });
       clone.querySelector('.answer').textContent = q.answer;
       const button = clone.querySelector('.toggle-button');
       button.addEventListener('click', () => {
